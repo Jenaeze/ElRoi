@@ -1,11 +1,18 @@
 // script.js
 document.addEventListener('DOMContentLoaded', function () {
-    // Fetch Bible verses from your dataset (e.g., in JSON format)
-    const verses = [...];  // Add your verses here
+    // Fetch the dataset of Bible verses from GitHub
+    fetch('verses.json')
+        .then(response => response.json())
+        .then(verses => {
+            // Get today's date
+            const today = new Date();
+            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (24 * 60 * 60 * 1000));
 
-    // Select a random verse
-    const randomVerse = verses[Math.floor(Math.random() * verses.length)];
+            // Use the day of the year to determine the index of the verse to display
+            const index = dayOfYear % verses.length;
 
-    // Display the verse on the web page
-    document.getElementById('verse').innerText = `${randomVerse.verse} - ${randomVerse.reference}`;
+            // Display the verse on the web page
+            document.getElementById('verse').innerText = `${verses[index].verse} - ${verses[index].reference}`;
+        })
+        .catch(error => console.error('Error fetching verses:', error));
 });
