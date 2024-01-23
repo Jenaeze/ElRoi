@@ -1,8 +1,13 @@
 // script.js
 document.addEventListener('DOMContentLoaded', function () {
     // Fetch the dataset of Bible verses from GitHub
-    fetch('verses.json')
-        .then(response => response.json())
+    fetch('https://jenaeze.github.io/ElRoi/verses.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(verses => {
             // Get today's date
             const today = new Date();
