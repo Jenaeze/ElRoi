@@ -18,6 +18,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Display the verse on the web page
             document.getElementById('verse').innerText = `${verses[index].verse} - ${verses[index].reference}`;
+
+            // Display the current date on the web page
+            displayCurrentDate();
         })
         .catch(error => console.error('Error fetching verses:', error));
+
+    // Helper function to display the current date
+    function displayCurrentDate() {
+        const currentDateElement = document.createElement('p');
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        currentDateElement.innerText = today.toLocaleDateString('en-US', options);
+        document.body.appendChild(currentDateElement);
+    }
 });
